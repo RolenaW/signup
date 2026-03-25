@@ -34,6 +34,8 @@ class _SignupPageState extends State<SignupPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
+  final List<String> _avatars = ['😊', '🚀', '🎮', '🐱', '🔥'];
+  String _selectedAvatar = '😊';
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +55,39 @@ class _SignupPageState extends State<SignupPage> {
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 20),
-              
+
+              Column(
+                children: [
+                  const Text('Choose Your Avatar'),
+                  const SizedBox(height: 10),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: _avatars.map((avatar) {
+                      return GestureDetector(
+                        onTap: () {
+                          setState((){
+                            _selectedAvatar = avatar;
+                          });
+                        },
+                        child: Container (
+                          margin: const EdgeInsets.symmetric(horizontal: 8),
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: _selectedAvatar == avatar
+                                ? Colors.purple
+                                : Colors.grey,
+                              width: 2
+                            ),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ],
+              ),
               // 👤 Name Field
               TextFormField(
                 controller: _nameController,
